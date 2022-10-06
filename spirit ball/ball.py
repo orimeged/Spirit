@@ -5,15 +5,16 @@ server_socket.listen()
 print("Server is up and running")
 (client_socket, client_address) = server_socket.accept()
 print("Client connected")
-data=" "
-while(data != "q"):
+reply=" "
+command = " "
+while(reply != "exit_of_server"):
     reply = input()
     client_socket.send(reply.encode())
     if(reply == "power"):
-        print(">")
-        command = input()
-        client_socket.send(command.encode())
-    else
-        data = client_socket.recv(1024).decode()
+        while(command != "exit_power"):
+            print(">")
+            command = input()
+            client_socket.send(command.encode())
+
 client_socket.close()
 server_socket.close()
