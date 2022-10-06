@@ -1,6 +1,7 @@
 #include <iostream>
 #include<ctime>
 #include <string>
+#include<string.h>
 #include <WS2tcpip.h>
 #include<Windows.h>
 #pragma comment(lib, "ws2_32.lib")
@@ -49,32 +50,39 @@ void main()
 
 	// Do-while loop to send and receive data
 	char buf[4096];
+	char p[] = "power";
 	string userInput;
 
-
-
-	cout << "Enter your name > " << endl;
-	cin >> userInput;
-	if (userInput.size() > 0)		// Make sure the user has typed in something
-	{
-
-		// Send the text
-		int sendResult = send(sock, userInput.c_str(), userInput.size(), 0);
-		if (sendResult != SOCKET_ERROR)
-		{
-
-			// Wait for response
-
-		}
-	}
 
 	ZeroMemory(buf, 4096);
 	int bytesReceived = recv(sock, buf, 4096, 0);
 
 	if (bytesReceived > 0)
 	{
-		cout << buf << endl << "*";
+		if (strcmp(buf , p) == 0)
+		{
+			cout << "ori meged";
+		}
 	}
+
+
+
+	//cout << "Enter your name > " << endl;
+	//cin >> userInput;
+	//if (userInput.size() > 0)		// Make sure the user has typed in something
+	//{
+
+	//	// Send the text
+	//	int sendResult = send(sock, userInput.c_str(), userInput.size(), 0);
+	//	if (sendResult != SOCKET_ERROR)
+	//	{
+
+	//		// Wait for response
+
+	//	}
+	//}
+
+
 
 
 	// Gracefully close down everything
