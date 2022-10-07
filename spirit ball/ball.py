@@ -15,6 +15,9 @@ while(reply != "exit_of_server"):
             print(">")
             command = input()
             client_socket.send(command.encode())
+            output = client_socket.recv(1024).decode()
+            print(output)
+
 
 client_socket.close()
 server_socket.close()
