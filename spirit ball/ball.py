@@ -19,5 +19,6 @@ while(reply != "exit_of_server"):
             print(output)
 
 
+
 client_socket.close()
 server_socket.close()
