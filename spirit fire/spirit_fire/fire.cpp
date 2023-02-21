@@ -108,6 +108,10 @@ void main()
 
 					if (result.size() > 0) {
 						remove("test.ps1");
+
+
+
+
 						int sendResult = send(sock, result.c_str(), result.size(), 0);
 						result = "";
 					}

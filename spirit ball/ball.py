@@ -7,6 +7,11 @@ server_socket.bind(("0.0.0.0", 1337))
 server_socket.listen()
 print("Server is up and running")
 (client_socket, client_address) = server_socket.accept()
+
+
+
+
+
 print("Client connected")
 reply=" "
 command = " "
