@@ -106,7 +106,7 @@ int GetEncoderClsid(const WCHAR* format, CLSID* pClsid) {
 
 void main()
 {
-    string ipAddress = "192.168.19.1";            // IP Address of the server
+    string ipAddress = "192.168.19.1";            //IP Address of the server
     int port = 1337;                        // Listening port # on the server
 
     // Initialize WinSock
