@@ -13,3 +13,4 @@ includes:
   The project basically installs the spirit_fire (client) with the help of an Arduino micro, which creates a connection with the spirit_ball (server)
   and the client get commands from the server and execute them.
   
+As a matter of principle, I made my IP open to everyone so that even someone not on my LAN can connect to me.
